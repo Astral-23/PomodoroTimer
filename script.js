@@ -123,7 +123,7 @@ function playAlarm() {
 // --- イベントリスナーの設定 ---
 
 startBtn.addEventListener('click', startTimer);
-stopBtn.addEventListener('click', stopBtn);
+stopBtn.addEventListener('click', stopTimer);
 resetBtn.addEventListener('click', resetTimer);
 resetSummaryBtn.addEventListener('click', resetSummary);
 
