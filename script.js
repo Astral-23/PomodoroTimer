@@ -22,6 +22,14 @@ resetTimer();
 // タイマーを更新する関数
 function updateTimer() {
     timeLeft--;
+
+    // 作業時間中、1分経過するごとに累計作業時間を1分加算
+    // timeLeftが60の倍数になった時点（例: 1500→1440）で1分経過したと判断
+    if (isWorkTime && timeLeft % 60 === 0 && timeLeft >= 0) {
+        totalWorkTime += 1;
+        updateSummaryDisplay();
+    }
+
     updateDisplay();
 
     if (timeLeft < 0) {
@@ -30,8 +38,7 @@ function updateTimer() {
         
         if (isWorkTime) {
             // 作業終了 -> 休憩開始
-            totalWorkTime += parseInt(workDurationInput.value, 10); // 累計作業時間を加算
-            updateSummaryDisplay();
+            // (累計時間は分単位で経過時に加算されるため、ここでは何もしない)
             isWorkTime = false;
             timeLeft = parseInt(breakDurationInput.value, 10) * 60;
             // CSSクラスを休憩用に変更
