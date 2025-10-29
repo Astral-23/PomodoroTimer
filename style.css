@@ -1,0 +1,78 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+}
+
+#timer-display {
+    font-size: 6rem;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #005a9c; /* 作業中の色 */
+}
+
+.controls button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+}
+
+#stop-btn {
+    background-color: #dc3545;
+}
+
+#reset-btn {
+    background-color: #6c757d;
+}
+
+.settings {
+    margin: 20px 0;
+}
+
+.settings div {
+    margin: 10px 0;
+}
+
+.settings label {
+    font-size: 1.1rem;
+}
+
+.settings input {
+    width: 60px;
+    font-size: 1.1rem;
+    padding: 5px;
+    text-align: center;
+}
+
+.summary {
+    margin-top: 30px;
+    border-top: 2px solid #ccc;
+    padding-top: 20px;
+}
+
+#total-work-time {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #28a745;
+}
+
+#reset-summary-btn {
+    background-color: #ffc107;
+    color: #333;
+    font-size: 1rem;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

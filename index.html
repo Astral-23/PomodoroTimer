@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポモドーロタイマー</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>ポモドーロタイマー</h1>
+
+    <div id="timer-display">25:00</div>
+
+    <div class="controls">
+        <button id="start-btn">スタート</button>
+        <button id="stop-btn">ストップ</button>
+        <button id="reset-btn">リセット</button>
+    </div>
+
+    <div class="settings">
+        <div>
+            <label for="work-duration">作業時間 (分):</label>
+            <input type="number" id="work-duration" value="25" min="1">
+        </div>
+        <div>
+            <label for="break-duration">休憩時間 (分):</label>
+            <input type="number" id="break-duration" value="5" min="1">
+        </div>
+    </div>
+
+    <div class="summary">
+        <h2>累計作業時間</h2>
+        <p id="total-work-time">0 分</p>
+        <button id="reset-summary-btn">累計をリセット</button>
+    </div>
+
+    <audio id="alarm-sound" src="alarm.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
