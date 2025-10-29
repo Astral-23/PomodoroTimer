@@ -1,78 +1,178 @@
+/* 基本設定とフォント */
 body {
-    font-family: sans-serif;
+    font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+    background-color: #121212; /* メインの背景色 (ダーク) */
+    color: #E0E0E0; /* 基本の文字色 (ライトグレー) */
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     min-height: 100vh;
-    background-color: #f4f4f4;
-    color: #333;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box; /* パディングを含めて計算 */
+}
+
+/* 中央のコンテナ */
+.container {
+    width: 100%;
+    max-width: 450px;
+    background-color: #1E1E1E; /* コンテナの背景色 */
+    border-radius: 15px;
+    padding: 30px 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid #333; /* わずかな境界線 */
     text-align: center;
 }
 
+h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-top: 0;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #007BFF; /* アクセントカラーの線 (青) */
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* タイマー表示エリア */
+.timer-wrapper {
+    margin: 20px 0;
+}
+
 #timer-display {
-    font-size: 6rem;
-    font-weight: bold;
-    margin: 20px 0;
-    color: #005a9c; /* 作業中の色 */
+    font-size: 6.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 10px 0 20px 0;
+    transition: color 0.4s ease; /* 色が滑らかに変わるアニメーション */
 }
 
+/* JSで切り替えるタイマーの色 */
+.timer-work {
+    color: #007BFF; /* 作業中の色 (青) */
+}
+.timer-break {
+    color: #28a745; /* 休憩中の色 (緑) */
+}
+
+/* ボタンコントロール */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* ボタン間のスペース */
+    margin-bottom: 30px;
+}
+
+/* ボタンの共通スタイル */
 .controls button {
-    font-size: 1.2rem;
-    padding: 10px 20px;
-    margin: 5px;
-    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 100px;
 }
 
-#stop-btn {
-    background-color: #dc3545;
+/* 個別のボタンスタイル */
+#start-btn {
+    background-color: #007BFF; /* メインのアクセントカラー (青) */
+    color: #FFFFFF; /* 白い文字色 */
+}
+#start-btn:hover {
+    background-color: #0056b3; /* ホバー時に暗い青 */
 }
 
-#reset-btn {
-    background-color: #6c757d;
+#stop-btn, #reset-btn {
+    background-color: transparent; /* 背景透明 */
+    color: #E0E0E0;
+    border: 2px solid #555; /* 枠線 */
 }
 
+#stop-btn:hover, #reset-btn:hover {
+    background-color: #333;
+    border-color: #777;
+}
+
+/* 設定エリア */
 .settings {
-    margin: 20px 0;
+    margin-bottom: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #333; /* 区切り線 */
 }
 
-.settings div {
-    margin: 10px 0;
+.setting-item {
+    display: flex;
+    justify-content: space-between; /* ラベルと入力を両端に配置 */
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .settings label {
     font-size: 1.1rem;
+    color: #AAA; /* 少し薄い文字色 */
 }
 
-.settings input {
-    width: 60px;
+.settings input[type="number"] {
+    width: 70px;
     font-size: 1.1rem;
-    padding: 5px;
+    font-weight: 700;
+    padding: 8px;
     text-align: center;
+    border: 1px solid #555;
+    border-radius: 6px;
+    background-color: #2C2C2C; /* 入力欄の背景色 */
+    color: #E0E0E0;
+    -moz-appearance: textfield;
 }
 
+.settings input[type="number"]::-webkit-outer-spin-button,
+.settings input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.settings input[type="number"]:focus {
+    outline: none;
+    border-color: #007BFF; /* フォーカス時のアクセントカラー (青) */
+}
+
+/* 累計エリア */
 .summary {
-    margin-top: 30px;
-    border-top: 2px solid #ccc;
     padding-top: 20px;
+    border-top: 1px solid #333; /* 区切り線 */
+}
+
+.summary h2 {
+    font-size: 1.4rem;
+    color: #AAA;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 400;
 }
 
 #total-work-time {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #28a745;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #28a745; /* 累計時間の色 (緑、休憩色と統一) */
+    margin: 0 0 15px 0;
 }
 
 #reset-summary-btn {
-    background-color: #ffc107;
-    color: #333;
-    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    background-color: #444;
+    color: #E0E0E0;
+    font-size: 0.9rem;
     padding: 8px 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#reset-summary-btn:hover {
+    background-color: #555;
 }

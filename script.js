@@ -34,12 +34,16 @@ function updateTimer() {
             updateSummaryDisplay();
             isWorkTime = false;
             timeLeft = parseInt(breakDurationInput.value, 10) * 60;
-            timerDisplay.style.color = '#28a745'; // 休憩中の色
+            // CSSクラスを休憩用に変更
+            timerDisplay.classList.remove('timer-work');
+            timerDisplay.classList.add('timer-break');
         } else {
             // 休憩終了 -> 作業開始
             isWorkTime = true;
             timeLeft = parseInt(workDurationInput.value, 10) * 60;
-            timerDisplay.style.color = '#005a9c'; // 作業中の色
+            // CSSクラスを作業用に変更
+            timerDisplay.classList.remove('timer-break');
+            timerDisplay.classList.add('timer-work');
         }
         updateDisplay();
     }
@@ -85,7 +89,9 @@ function resetTimer() {
     stopTimer();
     isWorkTime = true; // 作業時間に戻す
     timeLeft = parseInt(workDurationInput.value, 10) * 60; // 設定中の作業時間でリセット
-    timerDisplay.style.color = '#005a9c'; // 作業中の色
+    // CSSクラスを作業用に変更
+    timerDisplay.classList.remove('timer-break');
+    timerDisplay.classList.add('timer-work');
     updateDisplay();
 }
 
@@ -110,7 +116,7 @@ function playAlarm() {
 // --- イベントリスナーの設定 ---
 
 startBtn.addEventListener('click', startTimer);
-stopBtn.addEventListener('click', stopTimer);
+stopBtn.addEventListener('click', stopBtn);
 resetBtn.addEventListener('click', resetTimer);
 resetSummaryBtn.addEventListener('click', resetSummary);
 
