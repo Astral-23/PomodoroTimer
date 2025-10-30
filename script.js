@@ -9,10 +9,18 @@ const totalWorkTimeDisplay = document.getElementById('total-work-time');
 const resetSummaryBtn = document.getElementById('reset-summary-btn');
 const alarmSound = document.getElementById('alarm-sound');
 
-let timerId = null; // タイマーのID
+let timerWorker = new Worker('worker.js'); // Web Workerの作成
+let isRunning = false; // タイマーが動作中かどうか
 let timeLeft = 0; // 残り時間（秒）
 let isWorkTime = true; // 現在が作業時間かどうか
 let totalWorkTime = 0; // 累計作業時間（分）
+
+// Workerからのメッセージを受信
+timerWorker.onmessage = function(e) {
+    if (e.data === 'tick') {
+        updateTimer();
+    }
+};
 
 // 初期設定（作業時間）をタイマーに反映
 resetTimer();
@@ -38,7 +46,6 @@ function updateTimer() {
         
         if (isWorkTime) {
             // 作業終了 -> 休憩開始
-            // (累計時間は分単位で経過時に加算されるため、ここでは何もしない)
             isWorkTime = false;
             timeLeft = parseInt(breakDurationInput.value, 10) * 60;
             // CSSクラスを休憩用に変更
@@ -70,9 +77,9 @@ function updateSummaryDisplay() {
 
 // タイマーをスタートする関数
 function startTimer() {
-    if (timerId === null) { // タイマーが動いていない時だけ実行
+    if (!isRunning) { // タイマーが動いていない時だけ実行
+        isRunning = true;
         // 現在の設定値を読み込む
-        // (タイマー動作中に設定を変更しても、次のセッションまで反映されない仕様)
         if (timeLeft === parseInt(workDurationInput.value, 10) * 60 || timeLeft === parseInt(breakDurationInput.value, 10) * 60) {
              if(isWorkTime) {
                  timeLeft = parseInt(workDurationInput.value, 10) * 60;
@@ -81,14 +88,14 @@ function startTimer() {
              }
         }
         
-        timerId = setInterval(updateTimer, 1000); // 1秒ごとにupdateTimerを実行
+        timerWorker.postMessage('start'); // Workerに開始を指示
     }
 }
 
 // タイマーをストップする関数
 function stopTimer() {
-    clearInterval(timerId); // setIntervalを停止
-    timerId = null;
+    timerWorker.postMessage('stop'); // Workerに停止を指示
+    isRunning = false;
 }
 
 // タイマーをリセットする関数
