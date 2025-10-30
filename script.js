@@ -136,12 +136,12 @@ resetSummaryBtn.addEventListener('click', resetSummary);
 
 // 設定が変更されたら、リセット時にそれが反映されるように
 workDurationInput.addEventListener('change', () => {
-    if (isWorkTime && timerId === null) { // 作業時間中で、タイマーが止まっている時だけ即時反映
+    if (isWorkTime && !isRunning) { // 作業時間中で、タイマーが止まっている時だけ即時反映
         resetTimer();
     }
 });
 breakDurationInput.addEventListener('change', () => {
-    if (!isWorkTime && timerId === null) { // 休憩時間中で、タイマーが止まっている時だけ即時反映
+    if (!isWorkTime && !isRunning) { // 休憩時間中で、タイマーが止まっている時だけ即時反映
         stopTimer();
         timeLeft = parseInt(breakDurationInput.value, 10) * 60;
         updateDisplay();
